@@ -1,0 +1,105 @@
+PATH
+  remote: .
+  specs:
+    glim_ai (0.2.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    actionpack (7.0.8)
+      actionview (= 7.0.8)
+      activesupport (= 7.0.8)
+      rack (~> 2.0, >= 2.2.4)
+      rack-test (>= 0.6.3)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.0, >= 1.2.0)
+    actionview (7.0.8)
+      activesupport (= 7.0.8)
+      builder (~> 3.1)
+      erubi (~> 1.4)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    activesupport (7.0.8)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+    addressable (2.8.5)
+      public_suffix (>= 2.0.2, < 6.0)
+    anthropic (0.1.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
+    builder (3.2.4)
+    concurrent-ruby (1.2.2)
+    crass (1.0.6)
+    dotenv (2.8.1)
+    erubi (1.12.0)
+    faraday (2.7.10)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (3.0.2)
+    i18n (1.14.1)
+      concurrent-ruby (~> 1.0)
+    json-schema (4.0.0)
+      addressable (>= 2.8)
+    loofah (2.21.3)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.12.0)
+    method_source (1.0.0)
+    minitest (5.20.0)
+    multipart-post (2.3.0)
+    nokogiri (1.15.4-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-darwin)
+      racc (~> 1.4)
+    public_suffix (5.0.3)
+    racc (1.7.1)
+    rack (2.2.8)
+    rack-test (2.1.0)
+      rack (>= 1.3)
+    rails-dom-testing (2.2.0)
+      activesupport (>= 5.0.0)
+      minitest
+      nokogiri (>= 1.6)
+    rails-html-sanitizer (1.6.0)
+      loofah (~> 2.21)
+      nokogiri (~> 1.14)
+    railties (7.0.8)
+      actionpack (= 7.0.8)
+      activesupport (= 7.0.8)
+      method_source
+      rake (>= 12.2)
+      thor (~> 1.0)
+      zeitwerk (~> 2.5)
+    rake (13.0.6)
+    ruby-openai (5.1.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
+    ruby2_keywords (0.0.5)
+    thor (1.2.2)
+    tiktoken_ruby (0.0.5-arm64-darwin)
+    tiktoken_ruby (0.0.5-x86_64-darwin)
+    tzinfo (2.0.6)
+      concurrent-ruby (~> 1.0)
+    zeitwerk (2.6.11)
+
+PLATFORMS
+  arm64-darwin-22
+  x86_64-darwin-21
+
+DEPENDENCIES
+  activesupport (>= 7.0.8)
+  anthropic
+  dotenv
+  glim_ai!
+  json-schema
+  minitest (~> 5.0)
+  railties (>= 7.0.8)
+  rake (~> 13.0)
+  ruby-openai
+  tiktoken_ruby (~> 0.0.5)
+
+BUNDLED WITH
+   2.4.6

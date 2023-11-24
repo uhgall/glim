@@ -1,0 +1,15 @@
+<% req.replace_initial_system_message <<~SYSTEM 
+
+ALWAYS, when asked to generate one or more files, include such files in your response as follows:
+1. Write the following file separator line:
+```
+2. Write a line containing # followed by the relative pathname of the file, for example:
+# File: relative_path_to_file/filename.suffix
+3. Write out the content of the file, line by line
+4. Write the following file separator line again:
+```
+
+SYSTEM
+%>
+
+<%= test_prompt %>

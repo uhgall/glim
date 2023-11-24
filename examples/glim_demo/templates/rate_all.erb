@@ -1,0 +1,33 @@
+<%
+# This is the template for rendering the prompt for rating all answers to a question.
+req.llm_name = 'gpt-3.5-turbo'
+%>
+<%= prompt_output_files %>
+
+---
+
+Below are different answers to the following question:
+"<%= question # this will insert the question passed in to the erb template
+%>"
+
+<% 
+# iterate over the answers we want to rate so that they will all be in the prompt
+answers.each_pair do |model, answer| 
+%>
+<%= model %>'s response: <%= answer.completion %>
+<% end %>
+
+<% 
+# now we will instruct the LLM to rate each of the answers: 
+%>
+Write a brief critique of each answer. 
+
+Then, generate a string in json format with a rating (0..1) for each answer.
+
+Enclose the string in XML tags, like this:
+&lt;ratings&gt;
+<%=
+JSON.pretty_generate(answers.map { |model,_| [model, "rating for the answer from #{model}"]}.to_h)
+%>
+&lt;/ratings&gt;
+

@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require_relative "../lib/globals"
+require_relative '../lib/glim_ai'
+
+GlimContext.cleanup!(ARGV[0])

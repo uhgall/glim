@@ -1,0 +1,33 @@
+I gave the following programming task to some LLMs and a human, in different programming languages:
+'''
+<%= text %>
+'''
+Below are the answers:
+<% for l, m in code.keys %>
+---l
+Language: <%= l %>
+Author: <%= m %>
+'''
+<%= code[[l,m]] %>
+'''
+<% end %>
+---
+Write a brief critique of each answer. Carefully check if the provided code will work and if it maximizes parallelism.
+Rate the elegance of the problem-specific code; disregard the library code for rating elegance.
+Then, analyze which language works better for this, and which LLMs did best. 
+Finally: Can you draw any conclusions about connections between the LLMs and the languages?
+For example, does it seem like a particular LLM prioritizes patterns that are more common in one language than another?
+At the end of your answer, after a "---" as a separator, write a json array with the various ratings for each one, on a scale of 0..1, like this:
+---
+[
+<% for l, m in code.keys %>
+  {
+    lang: <%=l%>, 
+    model: <%=m%>, 
+    elegance: 0.42, # reason for elegance score
+    parallelism: 0.42, # reason for parallelism score
+    correctness: 0.42, # reason for correctness score
+    instructions_conformity: 0.42,}, # reason this score; it should measure how well the answer conforms to the instructions
+<% end %>
+]
+(Replace 0.42 with your rating for each answer)

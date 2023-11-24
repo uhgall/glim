@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    h2, h3 {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Request Information</h2>
+
+<% if request_hash[:max_tokens] || request_hash[:model] %>
+  <h3>General Settings</h3>
+  <% if request_hash[:max_tokens] %>
+    <p><strong>Max Tokens:</strong> <%= request_hash[:max_tokens] %></p>
+  <% end %>
+  <% if request_hash[:model] %>
+    <p><strong>Model:</strong> <%= request_hash[:model] %></p>
+  <% end %>
+<% end %>
+
+<% if request_hash[:messages] && !request_hash[:messages].empty? %>
+  <h3>Messages</h3>
+  <% request_hash[:messages].each_with_index do |message, index| %>
+    <p><strong>Message <%= index + 1 %>:</strong></p>
+    <pre>
+    Role: <%= message[:role] %>
+    Content: <%= message[:content] %>
+    </pre>
+  <% end %>
+<% end %>
+
+<% if request_hash[:functions] && !request_hash[:functions].empty? %>
+  <h3>Functions</h3>
+  <% request_hash[:functions].each_with_index do |function, index| %>
+    <p><strong>Function <%= index + 1 %>:</strong></p>
+    <pre>
+    <% if function[:name] %>
+      Name: <%= function[:name] %>
+    <% end %>
+    <% if function[:description] %>
+      Description: <%= function[:description] %>
+    <% end %>
+    <% if function[:parameters] %>
+      Parameters:
+      <% if function[:parameters][:type] %>
+        Type: <%= function[:parameters][:type] %>
+      <% end %>
+      <% if function[:parameters][:properties] %>
+        Properties:
+        <% function[:parameters][:properties].each do |key, property| %>
+          <%= key.capitalize %>:
+          <% if property[:type] %>
+            Type: <%= property[:type] %>
+          <% end %>
+          <% if property[:description] %>
+            Description: <%= property[:description] %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if function[:parameters][:required] %>
+        Required:
+        <%= function[:parameters][:required].join(", ") %>
+      <% end %>
+    <% end %>
+    </pre>
+  <% end %>
+<% end %>
+
+</body>
+</html>

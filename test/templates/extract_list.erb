@@ -1,0 +1,34 @@
+<%
+
+# Example for extracting a list of items from data augmented into a prompt.
+# 2023.08.13 Observations: 
+# GPT* pays most attention to the variable name, followed by the prompt, followed by the var descriptions. 
+# The description is almost pointless.
+# GPT4 takes the prompt more literally and hesitates to use its world knowledge.
+# It might also matter what the function is called - with extract_data, it might hesitate to use world knowledge.
+
+req.model_id = "gpt-3.5"
+req.max_tokens = 2000
+req.temperature = 0
+req.set_output_schema({
+    type: "object",
+    properties: {
+        name: { type: "string" },
+        birth_year: { type: "integer" },
+        city_and_country: { type: "string"},
+        info: { type: "string" },
+        confidence: { 
+            type: "number", 
+            description: "Confidence of acuracy of this record, 0..1" },
+        confidence_reason: { 
+            type: "string", 
+            description: "Reason for confidence score, including which fields are unclear." 
+        }
+        },
+    required: ["name", "confidence"]
+}, :list)
+
+%>
+Extract as much from the following text as you can. 
+In the confidence information, only state reasons for not being confident, not reasons for being confident.
+<%= text %>

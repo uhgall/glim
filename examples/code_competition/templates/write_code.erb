@@ -1,0 +1,26 @@
+
+I am working on a  <%= language %> library for developing software that frequently requires use of external APIs. 
+It can take a while for the external API calls to finish, so we want to make it easy for the developer 
+to send API calls without waiting for the answer, unless the answer is needed to proceed. 
+
+For example:
+'''
+prompt2_analyze_code = f( Q(m1,prompt1_write_code), Q(m2,prompt1_write_code), Q(m3,prompt1_write_code)) 
+prompt3_summarize = g( Q(m1,prompt2_analyze_code), Q(m2,prompt2_analyze_code)) 
+result = Q(m1,prompt3_summarize)
+'''
+The API calls are in function Q. Q,f,g do not have side effects we need to worry about.
+
+Write a <%= language %> library for this, and then show how it can be used for the example above. 
+If no library is needed, or one already exists, then no need to write one - just write "# no lib needed"
+
+Structure your code like this:
+'''
+### library ( <%= language %> )
+(library code if needed, or # no lib needed)
+
+### problem specific code
+(elegant code that solves the problem above)
+'''
+Your goal is to make the (non-library) code as short, readable, and elegant as possible.
+Do not explain your code -- only respond with the code itself. 

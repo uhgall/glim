@@ -1,0 +1,21 @@
+<% req.replace_initial_system_message <<~SYSTEM 
+When asked for source code or other text files, always use the following format:
+<file pathname="path_to_file/hello.rb">
+# line 1
+# line 2
+</file>
+So, the example above shows how you would include a file called "hello.rb" that belongs in the subdirectory "path_to_file" and contains "# line 1\n# line 2\n"
+If there is no reason to put a file into a subdirectory, then just specify the filename.
+Be precise about the suffix of the file. If the instructions don't call for one, don't just make one up.
+For example, if you're asked to respond with a file named "world", then do this:
+<file pathname="world">
+Use this response format every time you are asked for one or more text files, not just for software code. 
+SYSTEM
+%>
+
+<% 
+#puts "****** #{req.request_details.inspect} ******"
+%>
+
+
+<%= test_prompt %>

@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+require_relative "../lib/globals"
+require_relative '../lib/glim_ai'
+
+require 'pp'
+
+glim = GlimContext.new
+
+responses = []
+
+n = 100
+prompt = "Count from 1 to #{n}. Respond only with the numbers from 1 to 100, nothing else. Separated by commas."
+
+GlimAI.model_repo.glim_models.each_pair do | model_id, hash |
+    hash.each_pair do | provider, glim_model |
+        puts "Sending request for #{glim_model}"
+        request = glim.request(glim_model: , prompt: )
+        begin
+            responses << [glim_model, request, request.send_and_return_future]
+        rescue GlimResponseError => e
+            puts "Error on send for #{glim_model} : #{e.message}"
+            responses << [glim_model, request, e]
+        end
+    end
+end
+
+puts("\n\nOpenAI API returns the following list of models:")
+glim.model_list_openai.each do |m|
+    puts "    #{m}"
+end
+puts("\n\n")
+
+for glim_model, request, future in responses
+    begin
+        r = future.response
+        s = "#{glim_model.to_desc}"
+        if r.error?
+            err = r.raw_response[:error] || "RR="+r.raw_response
+            if err.is_a?(Hash)
+                err = JSON.pretty_generate(err)
+            end
+            s += " ERROR: #{err}"
+        else
+            tps = r.completion_tokens / r.time_spent
+            s += " #{'%5.1f' % tps} tk/s"
+            responding_llm_name = r.responding_llm_name.to_s
+            s += " -> #{responding_llm_name}" if responding_llm_name != glim_model.llm_name
+            s += " Surprising completion: `#{r.completion }`" if r.completion.length < 160
+        end
+        puts s
+    rescue GlimResponseError => e
+        puts "***** RESCUED Error for #{r.request.llm_name}: #{e.message}"
+    end
+end
+
+puts "\n\nTotal cost: $#{'%5.2f' % glim.cost}. Without caching, it would have been $#{'%5.2f' % glim.cost_including_cached}"
+

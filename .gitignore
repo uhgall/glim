@@ -1,0 +1,4 @@
+.env
+tmp/
+glim-ai-*.gem
+.DS_Store
