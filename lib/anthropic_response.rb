@@ -47,20 +47,20 @@ class AnthropicResponse < GlimResponse
     raise "request_hash should not have messages for Anthropic" if params[:messages]
     AnthropicResponse.api_limiter.with_limit do
       client = Anthropic::NonWrappingClient.new # this is necessary because the Anthropic API modifies the prompt
-        _raw_response = client.complete(parameters: params).with_indifferent_access
-        if _raw_response[:error]
-          if _raw_response[:error][:type] == "rate_limit_error"
-            # this shouldn't actually happen, since we pre-check the rate limit, so it's a hard error
-            limit = AnthropicResponse.api_limiter.max_concurrent_requests
-            raise RateLimitExceededError, "Rate limit (#{limit}) exceeded. Edit config or negotiate with Anthropic to avoid this."
-          else
-              # do nothing; the raw_response is clearly marked with an error. 
-              # "Anthropic API error: #{_raw_response[:error]}"
-          end
+      _raw_response = client.complete(parameters: params).with_indifferent_access
+      if _raw_response[:error]
+        if _raw_response[:error][:type] == "rate_limit_error"
+          # this shouldn't actually happen, since we pre-check the rate limit, so it's a hard error
+          limit = AnthropicResponse.api_limiter.max_concurrent_requests
+          raise RateLimitExceededError, "Rate limit (#{limit}) exceeded. Edit config or negotiate with Anthropic to avoid this."
+        else
+            # do nothing; the raw_response is clearly marked with an error. 
+            # "Anthropic API error: #{_raw_response[:error]}"
         end
-        return _raw_response
       end
+      return _raw_response
     end
+  end
 
   ##### NOT SUPPORTED in the code yet
   # top_k

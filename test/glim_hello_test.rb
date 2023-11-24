@@ -8,9 +8,10 @@ class GlimTest < Minitest::Test
   def test_hello_world
     require 'glim_ai'
     glim = GlimContext.new
-    response = glim.request(model_id: "gpt-3.5", prompt: "Who came up with Hello World?").await_response
-    puts response.completion
+    r = glim.request(model_id: "gpt-3.5", prompt: "Hello World - Explain.").await_response
+    r.completion
+    #puts r.completion
     # and you get lots of nice things, like this:
-    puts "Completion was #{response.completion_tokens} tokens long, total cost = $ #{response.total_cost}"  
+    #puts "Completion had #{r.completion_tokens} tokens, cost $#{r.total_cost}" 
   end
 end

@@ -68,7 +68,7 @@ TEXT
     assert text.include?('Now comes a file')
 
     s = include_files(@base_path, prefix='')
-
+    assert s.include?('file1')
   end
 
 end
