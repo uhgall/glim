@@ -2,7 +2,7 @@
 
 Glim is a ruby gem for using LLM Web APIs (OpenAI, Anthropic, etc) in real world, production applications.
 
-It takes care of a bunch of annoying, tedious tasks so you don't have to, while still being easy to use:
+It takes care of a bunch of annoying, tedious tasks so you don't have to:
 
 ```ruby
 require 'glim_ai'
